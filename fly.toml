@@ -1,0 +1,26 @@
+# Rename the app below if this name is already taken (`fly apps create <name>`
+# will tell you). Everything else here can stay as-is for a first deploy.
+app = "sakshi-dua-content-agent"
+primary_region = "sin"
+
+[build]
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[vm]]
+  size = "shared-cpu-1x"
+  # 1024mb, not 512mb -- headless Chromium (brochure PDF/PNG rendering via
+  # Playwright) needs more headroom than the rest of the API alone did.
+  memory = "1024mb"
+
+# Persistent disk for SQLite (content library, usage tracking, email send
+# history) and the asset bank (uploaded + AI-generated images) -- without
+# this, every redeploy or machine restart would wipe them.
+[mounts]
+  source = "data"
+  destination = "/app/data"

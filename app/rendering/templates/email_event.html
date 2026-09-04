@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ content.headline }}</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f4f4f4;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
+{% import "_email_shared.html" as shared %}
+<center>
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+<tr>
+<td align="center" style="padding:0;">
+<table border="0" cellpadding="0" cellspacing="0" width="{{ page_width }}" style="width:{{ page_width }}px;max-width:{{ page_width }}px;border-collapse:collapse;background-color:#ffffff;">
+
+<!-- TOP BAR -->
+<tr>
+  <td style="background-color:#111827;padding:16px 32px;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+      <tr>
+        <td align="left" style="font-size:15px;font-weight:800;color:#ffffff;">{{ trainer_name or "Workshop" }}</td>
+        <td align="right" style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#D1D5DB;">Save the date</td>
+      </tr>
+    </table>
+  </td>
+</tr>
+
+<!-- HERO -->
+<tr>
+  <td align="center" style="padding:0;background-color:#ffffff;">
+    {% if hero_photo_url %}
+    <img src="{{ hero_photo_url }}" alt="{{ content.headline }}" width="{{ page_width }}" style="display:block;width:100%;max-width:{{ page_width }}px;height:auto;border:0;">
+    {% else %}
+    <div style="width:100%;height:260px;background-color:#E5E7EB;"></div>
+    {% endif %}
+  </td>
+</tr>
+
+<!-- HEADLINE -->
+<tr>
+  <td style="padding:36px 40px 8px 40px;text-align:left;background-color:#ffffff;">
+    {% if content.eyebrow %}
+    <p style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#111827;margin:0 0 12px 0;">{{ content.eyebrow }}</p>
+    {% endif %}
+    <h1 style="font-size:28px;line-height:36px;margin:0;color:#1a1a1a;font-weight:800;">{{ content.headline }}</h1>
+    <p style="font-size:15px;line-height:24px;margin:14px 0 0 0;color:#4a4a4a;">{{ content.intro_text }}</p>
+    {% if content.bullet_line %}
+    <p style="font-size:14px;line-height:22px;margin:14px 0 0 0;color:#374151;padding-left:14px;border-left:3px solid #111827;">{{ content.bullet_line }}</p>
+    {% endif %}
+  </td>
+</tr>
+
+<!-- 3 COLUMN -->
+<tr>
+  <td style="padding:28px 26px 40px 26px;background-color:#ffffff;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+      <tr>
+        {% for item in items[:3] %}
+        <td width="33%" valign="top" style="padding:0 10px;text-align:left;">
+          {% if item.photo_url %}
+          <img src="{{ item.photo_url }}" alt="{{ item.content.title }}" width="160" height="160" style="display:block;width:100%;max-width:160px;height:160px;object-fit:cover;border-radius:10px;margin:0 0 12px 0;">
+          {% else %}
+          <div style="width:100%;max-width:160px;height:160px;background-color:#F3F4F6;border-radius:10px;margin:0 0 12px 0;"></div>
+          {% endif %}
+          <p style="font-size:13.5px;font-weight:700;color:#1a1a1a;margin:0 0 5px 0;">{{ item.content.title }}</p>
+          <p style="font-size:12px;line-height:18px;color:#6b7280;margin:0;">{{ item.content.text }}</p>
+        </td>
+        {% endfor %}
+      </tr>
+    </table>
+  </td>
+</tr>
+
+{{ shared.cta_button(cta_text) }}
+{{ shared.footer(trainer_name, trainer_contact, positioning_tags, logo_url) }}
+
+</table>
+</td>
+</tr>
+</table>
+</center>
+</body>
+</html>

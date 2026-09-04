@@ -1,0 +1,41 @@
+{% macro cta_button(cta_text) %}
+<tr>
+  <td align="center" style="background-color:#111827;padding:40px;">
+    <a href="#" target="_blank" style="display:inline-block;padding:16px 34px;background-color:#ffffff;color:#111827;text-decoration:none;border-radius:8px;font-size:17px;font-weight:700;">{{ cta_text }}</a>
+  </td>
+</tr>
+{% endmacro %}
+
+{% macro footer(trainer_name, trainer_contact, positioning_tags, logo_url="") %}
+<tr>
+  <td style="background-color:#FFFFFF;padding:32px 40px;text-align:center;">
+    {% if logo_url %}
+    <img src="{{ logo_url }}" alt="{{ trainer_name or 'Logo' }}" width="180" style="display:inline-block;width:180px;max-width:180px;height:auto;margin:0 0 14px 0;">
+    {% elif trainer_name %}
+    <p style="font-size:13px;font-weight:700;color:#374151;margin:0 0 4px 0;">{{ trainer_name }}</p>
+    {% endif %}
+    {% if trainer_contact %}
+    <p style="font-size:12.5px;color:#6B7280;margin:0 0 16px 0;">{{ trainer_contact }}</p>
+    {% endif %}
+    {% if positioning_tags %}
+    <div>
+      {% for tag in positioning_tags[:5] %}
+      <span style="display:inline-block;background-color:#E5E7EB;color:#6B7280;padding:6px 12px;border-radius:16px;font-size:11.5px;margin:0 4px 4px 0;white-space:nowrap;">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </td>
+</tr>
+{% endmacro %}
+
+{% macro mark(trainer_name, logo_url="") %}
+<tr>
+  <td align="center" style="padding:28px 40px 0 40px;background-color:#ffffff;">
+    {% if logo_url %}
+    <img src="{{ logo_url }}" alt="{{ trainer_name or 'Logo' }}" width="140" style="display:inline-block;width:140px;max-width:140px;height:auto;">
+    {% else %}
+    <div style="width:38px;height:38px;border-radius:10px;background-color:#111827;color:#ffffff;font-weight:800;font-size:16px;line-height:38px;text-align:center;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">{{ (trainer_name or "W")[0] }}</div>
+    {% endif %}
+  </td>
+</tr>
+{% endmacro %}

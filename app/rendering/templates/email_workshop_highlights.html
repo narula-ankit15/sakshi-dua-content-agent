@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ content.headline }}</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f4f4f4;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
+{% import "_email_shared.html" as shared %}
+<center>
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+<tr>
+<td align="center" style="padding:0;">
+<table border="0" cellpadding="0" cellspacing="0" width="{{ page_width }}" style="width:{{ page_width }}px;max-width:{{ page_width }}px;border-collapse:collapse;background-color:#ffffff;">
+
+<!-- HERO -->
+<tr>
+  <td align="center" style="padding:0;">
+    {% if hero_photo_url %}
+    <img src="{{ hero_photo_url }}" alt="{{ content.headline }}" width="{{ page_width }}" style="display:block;width:100%;max-width:{{ page_width }}px;height:auto;border:0;">
+    {% else %}
+    <div style="width:100%;height:260px;background-color:#E5E7EB;"></div>
+    {% endif %}
+  </td>
+</tr>
+
+<!-- HEADLINE -->
+<tr>
+  <td style="padding:48px 40px 16px 40px;text-align:left;background-color:#ffffff;">
+    {% if content.eyebrow %}
+    <p style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#111827;margin:0 0 12px 0;">{{ content.eyebrow }}</p>
+    {% endif %}
+    <h1 style="font-size:30px;line-height:38px;margin:0;color:#1a1a1a;font-weight:800;">{{ content.headline }}</h1>
+    <p style="font-size:16px;line-height:26px;margin:16px 0 0 0;color:#4a4a4a;">{{ content.intro_text }}</p>
+  </td>
+</tr>
+
+<!-- STAT STRIP -->
+<tr>
+  <td style="background-color:#F3F4F6;padding:28px 40px;text-align:center;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+      <tr>
+        <td width="33%" style="padding:0 10px;vertical-align:top;">
+          <p style="font-size:32px;line-height:38px;font-weight:800;color:#111827;margin:0;">{{ content.modules|length }}</p>
+          <p style="font-size:13px;line-height:18px;text-transform:uppercase;color:#555555;margin:4px 0 0 0;">Modules</p>
+        </td>
+        <td width="33%" style="padding:0 10px;vertical-align:top;">
+          <p style="font-size:32px;line-height:38px;font-weight:800;color:#111827;margin:0;">{{ content.outcomes|length }}</p>
+          <p style="font-size:13px;line-height:18px;text-transform:uppercase;color:#555555;margin:4px 0 0 0;">Outcomes</p>
+        </td>
+        <td width="33%" style="padding:0 10px;vertical-align:top;">
+          <p style="font-size:32px;line-height:38px;font-weight:800;color:#111827;margin:0;">{{ content.methodology|length }}</p>
+          <p style="font-size:13px;line-height:18px;text-transform:uppercase;color:#555555;margin:4px 0 0 0;">Methods</p>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+
+<!-- MODULE HIGHLIGHTS -->
+{% if content.modules %}
+{% set visible_modules = content.modules[:4] %}
+<tr>
+  <td style="background-color:#ffffff;padding:40px 26px 8px 26px;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+      <tr>
+        {% for module in visible_modules %}
+        <td width="{{ (100 / visible_modules|length)|round|int }}%" valign="top" style="padding:0 8px 24px 8px;">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;background-color:#ffffff;border:1px solid #eeeeee;border-radius:8px;">
+            <tr>
+              <td style="padding:20px;">
+                <div style="width:40px;height:40px;border-radius:50%;background-color:#111827;color:#ffffff;font-weight:700;font-size:17px;line-height:40px;text-align:center;margin:0 0 14px 0;">{{ module.module_number }}</div>
+                <p style="font-size:15px;line-height:22px;font-weight:700;color:#1a1a1a;margin:0 0 8px 0;">{{ module.title }}</p>
+                {% if module.bullets %}
+                <p style="font-size:13px;line-height:20px;color:#555555;margin:0;">{{ module.bullets[0] }}</p>
+                {% endif %}
+              </td>
+            </tr>
+          </table>
+        </td>
+        {% endfor %}
+      </tr>
+    </table>
+  </td>
+</tr>
+{% endif %}
+
+<!-- METHODOLOGY -->
+{% if content.methodology %}
+<tr>
+  <td style="background-color:#F3F4F6;padding:32px 40px;text-align:center;">
+    <p style="font-size:13px;line-height:18px;text-transform:uppercase;color:#555555;margin:0 0 18px 0;font-weight:700;">Our Proven Methodology</p>
+    <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 auto;">
+      <tr>
+        <td>
+          {% for method in content.methodology[:5] %}
+          <span style="display:inline-block;background-color:#ffffff;color:#374151;padding:8px 14px;border-radius:16px;font-size:12.5px;font-weight:600;margin:0 6px 8px 0;">{{ method }}</span>
+          {% endfor %}
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+{% endif %}
+
+<!-- GALLERY (optional real photos) -->
+{% if item_photo_urls %}
+<tr>
+  <td style="background-color:#ffffff;padding:36px 40px;">
+    <p style="font-size:14px;font-weight:700;color:#1a1a1a;margin:0 0 16px 0;text-align:center;">From Recent Cohorts</p>
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+      <tr>
+        <td align="center">
+          <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+            <tr>
+              {% for url in item_photo_urls[:3] %}
+              <td style="padding:0 8px;">
+                <img src="{{ url }}" alt="Workshop moment" width="120" height="120" style="display:block;width:120px;height:120px;object-fit:cover;border-radius:8px;">
+              </td>
+              {% endfor %}
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+{% endif %}
+
+{{ shared.cta_button(cta_text) }}
+{{ shared.footer(trainer_name, trainer_contact, positioning_tags, logo_url) }}
+
+</table>
+</td>
+</tr>
+</table>
+</center>
+</body>
+</html>

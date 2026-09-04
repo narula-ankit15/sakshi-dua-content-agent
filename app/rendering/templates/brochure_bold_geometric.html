@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: {{ page_width }}px;
+    height: {{ page_height }}px;
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: #16130F;
+    background: #FFFDF7;
+  }
+  .page { width: {{ page_width }}px; min-height: {{ page_height }}px; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; background: #16130F; color: #FFFDF7; padding: 13px 40px 13px 40px; overflow: hidden; display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+  .hero__square { position: absolute; background: #FF5A36; }
+  .hero__body { position: relative; z-index: 2; max-width: 76%; }
+  .hero__eyebrow {
+    display: inline-block; background: #FF5A36; color: #16130F;
+    font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 10px; margin-bottom: 8px;
+  }
+  .hero__title { font-size: 26px; font-weight: 900; line-height: 1.04; text-transform: uppercase; letter-spacing: -0.01em; }
+  .hero__tagline { font-size: 13px; font-weight: 700; margin-top: 6px; color: #FFD8CB; }
+  .hero__description { font-size: 11.5px; margin-top: 6px; line-height: 1.4; color: #E8E4DA; max-width: 94%; }
+  .hero__photo-wrap { position: relative; z-index: 2; width: 116px; height: 116px; flex-shrink: 0; }
+  .hero__photo-bg { position: absolute; top: 8px; left: 8px; width: 116px; height: 116px; background: #FF5A36; }
+  .hero__photo { position: relative; width: 116px; height: 116px; overflow: hidden; border: 3px solid #FFFDF7; }
+  .hero__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ---------- Generic section ---------- */
+  .section { padding: 5px 40px; }
+  .section__eyebrow {
+    display: inline-block;
+    font-size: 11px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase;
+    color: #16130F; margin-bottom: 10px; border-bottom: 3px solid #FF5A36; padding-bottom: 3px;
+  }
+
+  /* ---------- Hook ---------- */
+  .hook { display: flex; flex-direction: column; gap: 5px; padding-top: 8px; }
+  .hook__line {
+    font-size: 13.5px; font-weight: 700; line-height: 1.4; color: #16130F;
+    padding-left: 14px; border-left: 4px solid #FF5A36;
+  }
+
+  /* ---------- Modules ---------- */
+  .modules { display: flex; flex-wrap: wrap; gap: 10px; }
+  .module-card {
+    flex: 1 1 45%; min-width: 250px;
+    background: var(--bg, #16130F); color: #FFFDF7;
+    padding: 7px 13px;
+  }
+  .module-card:nth-child(4n+1) { --bg: #16130F; }
+  .module-card:nth-child(4n+2) { --bg: #FF5A36; }
+  .module-card:nth-child(4n+3) { --bg: #2B2620; }
+  .module-card:nth-child(4n+4) { --bg: #D94A2B; }
+  .module-card__num { font-size: 18px; font-weight: 900; opacity: 0.55; line-height: 1; margin-bottom: 2px; }
+  .module-card__title { font-size: 12.5px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; }
+  .module-card__bullets { list-style: none; padding: 0; }
+  .module-card__bullets li { font-size: 10.6px; line-height: 1.38; opacity: 0.92; padding-left: 10px; position: relative; }
+  .module-card__bullets li::before { content: "▸"; position: absolute; left: 0; }
+
+  /* ---------- Gallery strip ---------- */
+  .gallery__row { display: flex; gap: 8px; }
+  .gallery__photo { flex: 1; height: 52px; overflow: hidden; position: relative; }
+  .gallery__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery__photo::after { content: ""; position: absolute; inset: 0; border: 2px solid #16130F; }
+
+  /* ---------- Methodology ---------- */
+  .methodology__list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .methodology__chip {
+    display: inline-flex; align-items: center;
+    background: #FFFDF7; color: #16130F; font-size: 11px; font-weight: 800;
+    padding: 6px 13px; border: 2px solid #16130F;
+  }
+
+  /* ---------- Outcomes ---------- */
+  .outcomes__list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 16px; }
+  .outcomes__list li {
+    flex: 1 1 46%; min-width: 220px;
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 12px; line-height: 1.35; font-weight: 600; color: #16130F;
+  }
+  .outcomes__list li svg { flex-shrink: 0; margin-top: 1px; }
+
+  /* ---------- Closing ---------- */
+  .closing {
+    margin-top: auto;
+    background: #16130F; color: #FFFDF7;
+    padding: 9px 40px 10px 40px;
+    position: relative;
+  }
+  .closing__eyebrow { color: #FF5A36; }
+  .closing__line { font-size: 13.5px; line-height: 1.5; font-weight: 700; color: #FFFDF7; margin-bottom: 12px; margin-top: 6px; }
+  .closing__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .closing__tag {
+    background: #FF5A36; color: #16130F; font-size: 10.5px; font-weight: 800;
+    padding: 4px 11px;
+  }
+  .closing__footer {
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    border-top: 2px solid #3A342B; padding-top: 12px; font-size: 11px; color: #D9D4C8;
+  }
+  .closing__footer strong { color: #FFFDF7; font-size: 13px; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="hero">
+      <div class="hero__square" style="width:70px;height:70px;top:-20px;left:-20px;opacity:0.9;"></div>
+      <div class="hero__body">
+        <div class="hero__eyebrow">Workshop</div>
+        <div class="hero__title">{{ content.hero_title }}</div>
+        <div class="hero__tagline">{{ content.hero_tagline }}</div>
+        <div class="hero__description">{{ content.hero_description }}</div>
+      </div>
+      {% if hero_photo_url %}
+      <div class="hero__photo-wrap">
+        <div class="hero__photo-bg"></div>
+        <div class="hero__photo"><img src="{{ hero_photo_url }}" alt="" /></div>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="section hook">
+      <div class="section__eyebrow" style="margin-bottom:6px;">Why This Workshop</div>
+      {% for line in content.hook_lines %}
+      <div class="hook__line">{{ line }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="section" style="padding-top:6px;">
+      <div class="section__eyebrow">What It Covers</div>
+      <div class="modules">
+        {% for module in content.modules[:4] %}
+        <div class="module-card">
+          <div class="module-card__num">{{ "%02d"|format(module.module_number) }}</div>
+          <div class="module-card__title">{{ module.title }}</div>
+          <ul class="module-card__bullets">
+            {% for bullet in module.bullets[:3] %}
+            <li>{{ bullet }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% if gallery_photo_urls %}
+    <div class="section" style="padding-top:6px;">
+      <div class="section__eyebrow">From Past Cohorts</div>
+      <div class="gallery__row">
+        {% for url in gallery_photo_urls %}
+        <div class="gallery__photo"><img src="{{ url }}" alt="" /></div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="section" style="padding-top:6px;">
+      <div class="section__eyebrow">Methodology</div>
+      <div class="methodology__list">
+        {% for method in content.methodology[:5] %}
+        <span class="methodology__chip">{{ method|shorten_methodology }}</span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="section" style="padding-top:6px;">
+      <div class="section__eyebrow">Outcomes</div>
+      <ul class="outcomes__list">
+        {% for outcome in content.outcomes[:4] %}
+        <li>
+          <svg viewBox="0 0 20 20" width="16" height="16"><rect x="1" y="1" width="18" height="18" fill="#FF5A36"/><path d="M5.5 10.3l2.8 2.8L14.5 7" stroke="#16130F" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>{{ outcome }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="closing">
+      <div class="section__eyebrow closing__eyebrow" style="border-bottom-color:#FF5A36;">Ready To Bring This In?</div>
+      <div class="closing__line">{{ content.closing_line }}</div>
+      <div class="closing__tags">
+        {% for tag in content.positioning_tags[:4] %}
+        <span class="closing__tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      <div class="closing__footer">
+        <span><strong>{{ trainer_name }}</strong></span>
+        {% if trainer_contact %}<span>{{ trainer_contact }}</span>{% endif %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

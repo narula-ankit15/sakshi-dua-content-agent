@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ content.headline }}</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f4f4f4;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
+{% import "_email_shared.html" as shared %}
+<center>
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+<tr>
+<td align="center" style="padding:0;">
+<table border="0" cellpadding="0" cellspacing="0" width="{{ page_width }}" style="width:{{ page_width }}px;max-width:{{ page_width }}px;border-collapse:collapse;background-color:#ffffff;">
+
+<!-- TOP BAR -->
+<tr>
+  <td style="background-color:#ffffff;padding:24px 40px 0 40px;border-bottom:1px solid #E5E7EB;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+      <tr>
+        <td align="left" style="padding-bottom:20px;">
+          {% if logo_url %}
+          <img src="{{ logo_url }}" alt="{{ trainer_name or 'Logo' }}" width="140" style="display:inline-block;width:140px;max-width:140px;height:auto;">
+          {% else %}
+          <span style="font-size:15px;font-weight:800;color:#1a1a1a;">{{ trainer_name or "Workshop" }}</span>
+          {% endif %}
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+
+<!-- HEADLINE -->
+<tr>
+  <td style="padding:32px 40px 20px 40px;text-align:center;background-color:#ffffff;">
+    {% if content.eyebrow %}
+    <p style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#111827;margin:0 0 12px 0;">{{ content.eyebrow }}</p>
+    {% endif %}
+    <h1 style="font-size:28px;line-height:36px;margin:0;color:#1a1a1a;font-weight:800;">{{ content.headline }}</h1>
+  </td>
+</tr>
+
+<!-- HERO -->
+<tr>
+  <td align="center" style="padding:0;background-color:#ffffff;">
+    {% if hero_photo_url %}
+    <img src="{{ hero_photo_url }}" alt="{{ content.headline }}" width="{{ page_width }}" style="display:block;width:100%;max-width:{{ page_width }}px;height:auto;border:0;">
+    {% else %}
+    <div style="width:100%;height:240px;background-color:#E5E7EB;"></div>
+    {% endif %}
+  </td>
+</tr>
+
+<!-- INTRO -->
+<tr>
+  <td style="padding:28px 40px 8px 40px;text-align:center;background-color:#ffffff;">
+    <p style="font-size:15px;line-height:25px;margin:0;color:#4a4a4a;">{{ content.intro_text }}</p>
+  </td>
+</tr>
+
+<!-- 2x2 GRID -->
+<tr>
+  <td style="padding:20px 26px 40px 26px;background-color:#ffffff;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+      {% for row in [items[0:2], items[2:4]] %}
+      {% if row|length > 0 %}
+      <tr>
+        {% for item in row %}
+        <td width="50%" valign="top" style="padding:0 10px 24px 10px;text-align:left;">
+          {% if item.photo_url %}
+          <img src="{{ item.photo_url }}" alt="{{ item.content.title }}" width="250" height="180" style="display:block;width:100%;height:180px;object-fit:cover;border-radius:10px;margin:0 0 12px 0;">
+          {% else %}
+          <div style="width:100%;height:180px;background-color:#F3F4F6;border-radius:10px;margin:0 0 12px 0;"></div>
+          {% endif %}
+          <p style="font-size:14px;font-weight:700;color:#1a1a1a;margin:0 0 5px 0;">{{ item.content.title }}</p>
+          <p style="font-size:12.5px;line-height:19px;color:#6b7280;margin:0;">{{ item.content.text }}</p>
+        </td>
+        {% endfor %}
+        {% if row|length == 1 %}
+        <td width="50%" style="padding:0 10px;">&nbsp;</td>
+        {% endif %}
+      </tr>
+      {% endif %}
+      {% endfor %}
+    </table>
+  </td>
+</tr>
+
+{{ shared.cta_button(cta_text) }}
+{{ shared.footer(trainer_name, trainer_contact, positioning_tags, logo_url) }}
+
+</table>
+</td>
+</tr>
+</table>
+</center>
+</body>
+</html>

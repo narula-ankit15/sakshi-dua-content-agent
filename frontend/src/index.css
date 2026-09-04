@@ -1,0 +1,67 @@
+:root {
+  --indigo-900: #1e1b4b;
+  --indigo-700: #4338ca;
+  --indigo-600: #4f46e5;
+  --purple-500: #7c3aed;
+  --blue-500: #2563eb;
+  --gradient-cta: linear-gradient(90deg, var(--purple-500), var(--blue-500));
+
+  --bg-page: #f1f0f7;
+  --bg-card: #ffffff;
+  --bg-row: #f6f5fb;
+
+  --text-heading: var(--indigo-900);
+  --text-body: #374151;
+  --text-muted: #6b7280;
+
+  --border-purple: #ddd6fe;
+  --border-amber: #fde68a;
+  --border-pink: #fbcfe8;
+  --border-blue: #bfdbfe;
+
+  --pill-bg: #e6e4fb;
+  --pill-text: var(--indigo-700);
+
+  --amber-icon-bg: #fef3c7;
+  --amber-icon-fg: #d97706;
+  --blue-icon-bg: #dbeafe;
+  --blue-icon-fg: #2563eb;
+  --purple-icon-bg: #ede9fe;
+  --purple-icon-fg: #7c3aed;
+  --green-icon-bg: #dcfce7;
+  --green-icon-fg: #16a34a;
+
+  --radius-card: 18px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 1px 2px rgba(30, 27, 75, 0.06), 0 8px 24px rgba(30, 27, 75, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-page);
+  color: var(--text-body);
+  font-family: "Segoe UI", Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--text-heading);
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+}

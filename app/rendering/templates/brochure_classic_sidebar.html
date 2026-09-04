@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: {{ page_width }}px;
+    height: {{ page_height }}px;
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: #1F2937;
+    background: #FFFFFF;
+  }
+  .page { width: {{ page_width }}px; min-height: {{ page_height }}px; display: flex; overflow: hidden; }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar {
+    width: 268px; flex-shrink: 0;
+    background: linear-gradient(200deg, #0F3D3E 0%, #0A2A2B 100%);
+    color: #FFFFFF;
+    padding: 34px 26px 24px 26px;
+    display: flex; flex-direction: column;
+  }
+  .sidebar__mark {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 800; margin-bottom: 18px;
+  }
+  .sidebar__eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #6EE7B7; margin-bottom: 10px; }
+  .sidebar__title { font-size: 25px; font-weight: 800; line-height: 1.14; }
+  .sidebar__tagline { font-size: 12.5px; font-weight: 600; margin-top: 10px; color: #A7F3D0; }
+  .sidebar__description { font-size: 10.8px; margin-top: 10px; line-height: 1.55; color: #D1FAE5; }
+
+  .sidebar__photo { width: 100%; height: 130px; border-radius: 10px; overflow: hidden; margin-top: 20px; border: 1px solid rgba(255,255,255,0.2); }
+  .sidebar__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .sidebar__stats { display: flex; gap: 10px; margin-top: 20px; }
+  .sidebar__stat { flex: 1; text-align: center; background: rgba(255,255,255,0.08); border-radius: 8px; padding: 8px 4px; }
+  .sidebar__stat-num { font-size: 19px; font-weight: 800; color: #6EE7B7; line-height: 1; }
+  .sidebar__stat-label { font-size: 8.5px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #A7F3D0; margin-top: 4px; }
+
+  .sidebar__tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+  .sidebar__tag { border: 1px solid #34D399; color: #A7F3D0; font-size: 9.5px; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
+
+  .sidebar__footer { margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.18); font-size: 10.5px; color: #D1FAE5; }
+  .sidebar__footer strong { display: block; color: #FFFFFF; font-size: 13px; margin-bottom: 4px; }
+
+  /* ---------- Main content ---------- */
+  .main { flex: 1; padding: 26px 36px 18px 32px; display: flex; flex-direction: column; overflow: hidden; }
+  .section { padding-top: 12px; }
+  .section:first-child { padding-top: 0; }
+  .section__eyebrow {
+    font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    color: #0F3D3E; margin-bottom: 10px;
+  }
+
+  /* ---------- Hook ---------- */
+  .hook__line { font-size: 12.5px; line-height: 1.4; color: #374151; font-weight: 500; margin-bottom: 4px; }
+
+  /* ---------- Modules ---------- */
+  .modules { display: flex; flex-direction: column; gap: 7px; }
+  .module-row { display: flex; gap: 12px; background: #F0FDF9; border-radius: 10px; padding: 8px 12px; }
+  .module-row__num {
+    width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; background: #0F3D3E; color: #6EE7B7;
+    display: flex; align-items: center; justify-content: center; font-size: 11.5px; font-weight: 800;
+  }
+  .module-row__title { font-size: 12px; font-weight: 800; color: #0F3D3E; margin-bottom: 3px; }
+  .module-row__bullets { list-style: none; padding: 0; }
+  .module-row__bullets li { font-size: 10.6px; line-height: 1.32; color: #4B5563; padding-left: 10px; position: relative; }
+  .module-row__bullets li::before { content: ""; position: absolute; left: 0; top: 6px; width: 3.5px; height: 3.5px; border-radius: 50%; background: #10B981; }
+
+  /* ---------- Gallery ---------- */
+  .gallery__row { display: flex; gap: 8px; }
+  .gallery__photo { flex: 1; height: 66px; border-radius: 8px; overflow: hidden; }
+  .gallery__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ---------- Methodology ---------- */
+  .methodology__list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .methodology__chip {
+    display: inline-flex; align-items: center;
+    background: #ECFDF5; color: #0F3D3E; font-size: 11px; font-weight: 700;
+    padding: 6px 12px; border-radius: 999px; border: 1px solid #A7F3D0;
+  }
+
+  /* ---------- Outcomes ---------- */
+  .outcomes__list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+  .outcomes__list li {
+    flex: 1 1 46%; min-width: 200px;
+    display: flex; align-items: flex-start; gap: 7px;
+    font-size: 11.5px; line-height: 1.4; color: #1F2937;
+  }
+  .outcomes__list li svg { flex-shrink: 0; margin-top: 1px; }
+
+  /* ---------- Closing ---------- */
+  .closing { margin-top: auto; padding-top: 14px; border-top: 2px solid #0F3D3E; }
+  .closing__line { font-size: 12px; line-height: 1.5; font-style: italic; color: #374151; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="sidebar">
+      <div class="sidebar__mark">{{ (trainer_name or "W")[0] }}</div>
+      <div class="sidebar__eyebrow">Workshop</div>
+      <div class="sidebar__title">{{ content.hero_title }}</div>
+      <div class="sidebar__tagline">{{ content.hero_tagline }}</div>
+      <div class="sidebar__description">{{ content.hero_description }}</div>
+
+      {% if hero_photo_url %}
+      <div class="sidebar__photo"><img src="{{ hero_photo_url }}" alt="" /></div>
+      {% endif %}
+
+      <div class="sidebar__stats">
+        <div class="sidebar__stat">
+          <div class="sidebar__stat-num">{{ content.modules|length }}</div>
+          <div class="sidebar__stat-label">Modules</div>
+        </div>
+        <div class="sidebar__stat">
+          <div class="sidebar__stat-num">{{ content.methodology|length }}</div>
+          <div class="sidebar__stat-label">Methods</div>
+        </div>
+        <div class="sidebar__stat">
+          <div class="sidebar__stat-num">{{ content.outcomes|length }}</div>
+          <div class="sidebar__stat-label">Outcomes</div>
+        </div>
+      </div>
+
+      <div class="sidebar__tags">
+        {% for tag in content.positioning_tags[:4] %}
+        <span class="sidebar__tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="sidebar__footer">
+        <strong>{{ trainer_name }}</strong>
+        {% if trainer_contact %}{{ trainer_contact }}{% endif %}
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="section">
+        <div class="section__eyebrow">Why This Workshop</div>
+        {% for line in content.hook_lines %}
+        <div class="hook__line">{{ line }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="section">
+        <div class="section__eyebrow">What It Covers</div>
+        <div class="modules">
+          {% for module in content.modules[:4] %}
+          <div class="module-row">
+            <div class="module-row__num">{{ module.module_number }}</div>
+            <div>
+              <div class="module-row__title">{{ module.title }}</div>
+              <ul class="module-row__bullets">
+                {% for bullet in module.bullets[:3] %}
+                <li>{{ bullet }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if gallery_photo_urls %}
+      <div class="section">
+        <div class="section__eyebrow">From Past Cohorts</div>
+        <div class="gallery__row">
+          {% for url in gallery_photo_urls %}
+          <div class="gallery__photo"><img src="{{ url }}" alt="" /></div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="section">
+        <div class="section__eyebrow">Methodology</div>
+        <div class="methodology__list">
+          {% for method in content.methodology[:5] %}
+          <span class="methodology__chip">{{ method|shorten_methodology }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section__eyebrow">Outcomes</div>
+        <ul class="outcomes__list">
+          {% for outcome in content.outcomes[:4] %}
+          <li>
+            <svg viewBox="0 0 20 20" width="15" height="15"><circle cx="10" cy="10" r="10" fill="#10B981"/><path d="M6 10.3l2.6 2.6L14.2 7" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>{{ outcome }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="closing">
+        <div class="closing__line">{{ content.closing_line }}</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

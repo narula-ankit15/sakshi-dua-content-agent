@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+pydantic>=2
+pydantic-settings
+python-dotenv
+python-multipart
+
+langgraph
+langchain-core
+
+google-genai
+
+pypdf
+shortuuid
+Pillow
+jinja2
+playwright

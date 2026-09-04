@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ content.headline }}</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f4f4f4;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
+{% import "_email_shared.html" as shared %}
+<center>
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
+<tr>
+<td align="center" style="padding:0;">
+<table border="0" cellpadding="0" cellspacing="0" width="{{ page_width }}" style="width:{{ page_width }}px;max-width:{{ page_width }}px;border-collapse:collapse;background-color:#ffffff;">
+
+{{ shared.mark(trainer_name, logo_url) }}
+
+<!-- IMAGE 1 -->
+<tr>
+  <td align="center" style="padding:20px 0 0 0;background-color:#ffffff;">
+    {% set first = items[0] if items|length > 0 else None %}
+    {% if first and first.photo_url %}
+    <img src="{{ first.photo_url }}" alt="{{ content.headline }}" width="{{ page_width }}" style="display:block;width:100%;max-width:{{ page_width }}px;height:auto;border:0;">
+    {% else %}
+    <div style="width:100%;height:220px;background-color:#E5E7EB;"></div>
+    {% endif %}
+  </td>
+</tr>
+
+<!-- HEADLINE + CTA -->
+<tr>
+  <td style="padding:40px 44px;text-align:center;background-color:#ffffff;">
+    {% if content.eyebrow %}
+    <p style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#111827;margin:0 0 12px 0;">{{ content.eyebrow }}</p>
+    {% endif %}
+    <h1 style="font-size:28px;line-height:36px;margin:0;color:#1a1a1a;font-weight:800;">{{ content.headline }}</h1>
+    <p style="font-size:15px;line-height:25px;margin:16px 0 24px 0;color:#4a4a4a;">{{ content.intro_text }}</p>
+    <a href="#" target="_blank" style="display:inline-block;padding:14px 30px;background-color:#111827;color:#ffffff;text-decoration:none;border-radius:8px;font-size:15px;font-weight:700;">{{ cta_text }}</a>
+  </td>
+</tr>
+
+<!-- IMAGE 2 -->
+<tr>
+  <td align="center" style="padding:0;background-color:#ffffff;">
+    {% set second = items[1] if items|length > 1 else None %}
+    {% if second and second.photo_url %}
+    <img src="{{ second.photo_url }}" alt="{{ content.closing_text }}" width="{{ page_width }}" style="display:block;width:100%;max-width:{{ page_width }}px;height:auto;border:0;">
+    {% else %}
+    <div style="width:100%;height:220px;background-color:#F3F4F6;"></div>
+    {% endif %}
+  </td>
+</tr>
+
+<tr>
+  <td style="padding:28px 44px 8px 44px;text-align:center;background-color:#ffffff;">
+    <p style="font-size:14px;line-height:22px;color:#6b7280;margin:0;font-style:italic;">{{ content.closing_text }}</p>
+  </td>
+</tr>
+
+{{ shared.footer(trainer_name, trainer_contact, positioning_tags, logo_url) }}
+
+</table>
+</td>
+</tr>
+</table>
+</center>
+</body>
+</html>
